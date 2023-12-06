@@ -46,6 +46,7 @@ const userSchema = new mongoose.Schema({
   resetPasswordExpire: Date,
 });
 
+// This is an even before saving to user this event is triggered
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();

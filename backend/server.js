@@ -10,7 +10,9 @@ connectDatabase()
 
 
 const product = require('./routes/productRoute')
+const user = require("./routes/userRoute")
 app.use('/api/v1', product)
+app.use('/api/v1', user)
 app.use(errorMiddleware);
 
 const server = app.listen(process.env.PORT, () => {
