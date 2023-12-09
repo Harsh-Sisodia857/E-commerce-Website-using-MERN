@@ -1,3 +1,4 @@
+const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const catchAsyncError = require('../middleware/catchAsyncErrors')
 const User = require('../models/userModel');
 const ErrorHandler = require('../utils/errorHandler');
@@ -109,5 +110,125 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
     await user.save();
+    // keep the user login by sending token -- we need to send the token because there is change in user data so token should change
     sendToken(user, 200, res);
 }) 
+
+exports.getUserDetail = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+    console.log(user)
+    res.status(200).json({
+        success: "true",
+        user
+    })
+})
+
+// update User password
+exports.updatePassword = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.user.id).select("+password");
+
+    const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+    if (!isPasswordMatched) {
+        return next(new ErrorHandler("Old password is incorrect", 400));
+    }
+
+    if (req.body.newPassword !== req.body.confirmPassword) {
+        return next(new ErrorHandler("password does not match", 400));
+    }
+
+    user.password = req.body.newPassword;
+    await user.save();
+    // keep login the user -- we need to send the token because there is change in user data so token should change
+    sendToken(user, 200, res);
+});
+
+// update User Profile
+exports.updateProfile = catchAsyncError(async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+    }
+
+    // We will add cloudinary later
+
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+});
+
+// Get all users(admin)
+exports.getAllUser = catchAsyncError(async (req, res, next) => {
+    const users = await User.find();
+
+    res.status(200).json({
+        success: true,
+        users,
+    });
+});
+
+// Get single user (admin)
+exports.getSingleUser = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return next(
+            new ErrorHandler(`User does not exist with Id: ${req.params.id}`)
+        );
+    }
+
+    res.status(200).json({
+        success: true,
+        user,
+    });
+});
+
+
+// update User Role -- Admin
+exports.updateUserRole = catchAsyncError(async (req, res, next) => {
+    const newUserData = {
+        role: req.body.role
+    };
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        return next(
+            new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400)
+        );
+    }
+
+    await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+    });
+
+    res.status(200).json({
+        success: true,
+        message: `Role of ${user.name} is Updated to ${req.body.role}`
+    });
+});
+
+// Delete User --Admin
+exports.deleteUser = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return next(
+            new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400)
+        );
+    }
+
+    await user.deleteOne();
+
+    res.status(200).json({
+        success: true,
+        message: "User Deleted Successfully",
+    });
+});
