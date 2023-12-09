@@ -3,11 +3,14 @@ const app = express();
 const dotenv = require('dotenv')
 const connectDatabase = require('./config/database')
 const errorMiddleware = require('./middleware/error')
+const cookieParser = require('cookie-parser')
+    
 app.use(express.json());
 
 dotenv.config({path : "backend/config/config.env"})
 connectDatabase()
 
+app.use(cookieParser())
 
 const product = require('./routes/productRoute')
 const user = require("./routes/userRoute")
