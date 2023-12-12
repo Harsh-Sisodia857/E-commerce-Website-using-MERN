@@ -41,7 +41,7 @@
 .banner::after {
   content: "";
   width: 100vw;
-  height: 100vmin;
+  height: 114vmin;
   background-color: #ffffff;
   position: absolute;
   top: 0%;

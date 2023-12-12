@@ -1,0 +1,25 @@
+.speedDial {
+  position: fixed;
+  right: 3vmax;
+  top: 3vmax;
+}
+
+.speedDialIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 100%;
+}
+.menuBurger{
+  top : 0vmax !important;
+}
+
+.header{
+    height: 4vmax;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+/*   
+  img{
+  
+} */

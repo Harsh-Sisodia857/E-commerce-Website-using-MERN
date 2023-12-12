@@ -4,8 +4,10 @@ const dotenv = require('dotenv')
 const connectDatabase = require('./config/database')
 const errorMiddleware = require('./middleware/error')
 const cookieParser = require('cookie-parser')
-    
+const cors = require('cors');
+
 app.use(express.json());
+app.use(cors());
 
 dotenv.config({path : "backend/config/config.env"})
 connectDatabase()

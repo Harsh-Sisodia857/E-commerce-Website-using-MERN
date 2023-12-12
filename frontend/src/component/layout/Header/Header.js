@@ -1,8 +1,10 @@
 import React from 'react'
-import {ReactNavbar} from "overlay-navbar"
+import { ReactNavbar } from "overlay-navbar"
 import logo from "../../../images/logo.png";
+import Search from "../../../images/search.png";
+import "./Header.css"
+import { useNavigate } from 'react-router-dom';
 
-    
 const options = {
     burgerColorHover: "#eb4034",
     logo,
@@ -27,16 +29,36 @@ const options = {
     link1ColorHover: "#eb4034",
     link1Margin: "1vmax",
     profileIconUrl: "/login",
+    searchIconUrl: "/search",
+    cartIconUrl: "/cart",
     profileIconColor: "rgba(35, 35, 35,0.8)",
     searchIconColor: "rgba(35, 35, 35,0.8)",
     cartIconColor: "rgba(35, 35, 35,0.8)",
-    profileIconColorHover: "#eb4034",
-    searchIconColorHover: "#eb4034",
-    cartIconColorHover: "#eb4034",
+    profileIconColorHover: "#121212",
+    searchIconColorHover: "#121212",
+    cartIconColorHover: "#121212",
     cartIconMargin: "1vmax",
+    searchIconMargin: "0.5vmax",
+    profileIconMargin: "0.5vmax",
 };
 
 const Header = () => {
-    return <ReactNavbar {...options} />;
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate("/search")
+    }
+    return (
+        <div className='header'>
+            <ReactNavbar {...options} />
+            <img src={Search} style={{
+                "marginRight": "37px",
+                "width": "30px",
+                "height": "30px",
+                "cursor" : "pointer"
+            }} onClick={handleClick} />
+        </div>
+
+    );
 };
 export default Header

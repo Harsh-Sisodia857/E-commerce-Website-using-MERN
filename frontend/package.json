@@ -7,6 +7,7 @@
     "@material-ui/data-grid": "^4.0.0-alpha.37",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
+    "@popperjs/core": "^2.11.8",
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.17.1",
     "@testing-library/jest-dom": "^5.16.5",
@@ -15,7 +16,7 @@
     "axios": "^0.21.1",
     "chart.js": "^3.5.1",
     "country-state-city": "^3.0.1",
-    "overlay-navbar": "^1.0.4",
+    "overlay-navbar": "^1.2.3",
     "react": "^18.2.0",
     "react-alert": "^7.0.3",
     "react-alert-template-basic": "^1.0.2",
@@ -58,6 +59,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy" : "http://192.168.115.143:4000/"
+  }
 }

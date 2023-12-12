@@ -2,10 +2,22 @@ import { legacy_createStore as createStore, combineReducers, applyMiddleware } f
 import thunk from 'redux-thunk';
 // To connect to redux devtools extension
 import { composeWithDevTools } from "redux-devtools-extension";
-import { productReducer } from './reducers/productReducer';
+import {
+    newProductReducer,
+    newReviewReducer,
+    productDetailsReducer,
+    productsReducer,
+    productReviewsReducer,
+    reviewReducer,
+} from "./reducers/productReducer";
 
 const reducer = combineReducers({
-    products : productReducer
+    products: productsReducer,
+    productDetails: productDetailsReducer,
+    newProduct: newProductReducer,
+    productReviews: productReviewsReducer,
+    review: reviewReducer,
+    newReview: newReviewReducer
 });
 
 let initialState = {};
