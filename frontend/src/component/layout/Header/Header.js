@@ -1,11 +1,11 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { ReactNavbar } from "overlay-navbar"
 import logo from "../../../images/logo.png";
-import Search from "../../../images/search.png";
 import "./Header.css"
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 const options = {
+    burgerColor: "white",
     burgerColorHover: "#eb4034",
     logo,
     logoWidth: "20vmax",
@@ -43,20 +43,20 @@ const options = {
 };
 
 const Header = () => {
-    const navigate = useNavigate();
-
-    const handleClick = () => {
-        navigate("/search")
-    }
+    const { isAuthenticated } = useSelector((state) => state.user);
+    useEffect(() => {
+        if (isAuthenticated === false) {
+            options.link3Text = "Login";
+            options.link3Url = "/login";
+        } else {
+            options.link3Text = "Contact Us";
+            options.link3Url = "/contact";
+        }
+    }, [isAuthenticated]);
+ 
     return (
         <div className='header'>
             <ReactNavbar {...options} />
-            <img src={Search} style={{
-                "marginRight": "37px",
-                "width": "30px",
-                "height": "30px",
-                "cursor" : "pointer"
-            }} onClick={handleClick} />
         </div>
 
     );

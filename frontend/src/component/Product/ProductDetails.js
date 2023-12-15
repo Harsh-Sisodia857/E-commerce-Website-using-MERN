@@ -67,7 +67,6 @@ const ProductDetails = () => {
 
   const addToCartHandler = () => {
     console.log("Add To Cart Handler Called...")
-    // dispatch(addItemsToCart(id, quantity));
     alert.success("Item Added To Cart");
   };
 

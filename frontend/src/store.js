@@ -2,6 +2,7 @@ import { legacy_createStore as createStore, combineReducers, applyMiddleware } f
 import thunk from 'redux-thunk';
 // To connect to redux devtools extension
 import { composeWithDevTools } from "redux-devtools-extension";
+import { forgotPasswordReducer, profileReducer, userReducer } from './reducers/userReducer';
 import {
     newProductReducer,
     newReviewReducer,
@@ -17,7 +18,10 @@ const reducer = combineReducers({
     newProduct: newProductReducer,
     productReviews: productReviewsReducer,
     review: reviewReducer,
-    newReview: newReviewReducer
+    newReview: newReviewReducer,
+    user: userReducer,
+    profile: profileReducer,
+    forgotPassword : forgotPasswordReducer
 });
 
 let initialState = {};

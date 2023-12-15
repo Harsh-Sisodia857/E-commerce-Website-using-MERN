@@ -10,27 +10,49 @@ import Home from './component/Home/Home.js'
 import Products from './component/Product/Products';
 import ProductDetails from './component/Product/ProductDetails';
 import Search from './component/Product/Search';
+import LoginSignUp from './component/User/LoginSignUp';
+import store from "./store.js"
+import { loadUser } from './actions/userAction.js';
+import UserOptions from "./component/layout/Header/UserOptions.js"
+import { useSelector } from 'react-redux';
+import Profile from './component/User/Profile';
+import UpdateProfile from './component/User/UpdateProfile.js';
+import ForgotPassword from './component/User/ForgotPassword.js';
+import ResetPassword from './component/User/ResetPassword.js';
+import UpdatePassword from './component/User/UpdatePassword.js';
+import ProtectedRoute from './component/Route/ProtectedRoute';
 
 function App() {
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+
   // To Download google fonts in our website we use webfontloader
   useEffect(() => {
     WebFont.load({
       google: {
-        families: ["Roboto","Open Sans","Lato"]
+        families: ["Roboto", "Open Sans", "Lato"]
       }
     })
-  })
+    store.dispatch(loadUser())
+  }, [])
   return (
     <div className="App">
-        <Header/>
-          <Routes>
-            <Route path='/' Component={Home}/>
-            <Route path='/products' Component={Products}/>
-            <Route path='/products/:keyword' Component={Products}/>
-            <Route path='/product/:id' Component={ProductDetails}/>
-            <Route path='/search' Component={Search}/>
-          </Routes>
-        <Footer/>
+      <Header />
+      {isAuthenticated && <UserOptions user={user} />}
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/products' element={<Products />} />
+        <Route path='/products/:keyword' element={<Products />} />
+        <Route path='/product/:id' element={<ProductDetails />} />
+        <Route path='/search' element={<Search />} />
+        <Route path='/login' element={<LoginSignUp />} />
+        <Route path="/password/forgot" element={<ForgotPassword />}/>
+        <Route path="/password/reset/:token" element={<ResetPassword />}/>
+        <Route path='/account' element={<ProtectedRoute ><Profile /></ProtectedRoute>} />
+        <Route path="/me/update" element={<ProtectedRoute ><UpdateProfile /></ProtectedRoute>} />
+        <Route path="/password/update" element={<ProtectedRoute ><UpdatePassword /></ProtectedRoute>} />
+      </Routes>
+
+      <Footer />
     </div>
   );
 }
