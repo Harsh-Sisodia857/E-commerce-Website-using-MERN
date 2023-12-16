@@ -90,7 +90,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
         user.resetPasswordExpire = undefined;
 
         await user.save({ validateBeforeSave: false });
-
+        console.log(err);
         return next(new ErrorHandler(err.message, 500));
     }
 })
@@ -158,7 +158,25 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
         email: req.body.email,
     }
 
-    // We will add cloudinary later
+    if (req.body.avatar && req.body.avatar !== "") {
+        const user = await User.findById(req.user.id);
+
+        const imageId = user.avatar.public_id;
+
+        await cloudinary.v2.uploader.destroy(imageId);
+
+        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: "avatars",
+            width: 150,
+            crop: "scale",
+        });
+
+        newUserData.avatar = {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url,
+        };
+    }
+
 
     const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,

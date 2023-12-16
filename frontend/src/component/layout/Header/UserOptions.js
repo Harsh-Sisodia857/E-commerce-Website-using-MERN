@@ -15,6 +15,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 
 const UserOptions = ({ user }) => {
+    const { cartItems } = useSelector((state) => state.cart);
 
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
@@ -25,7 +26,15 @@ const UserOptions = ({ user }) => {
         { icon: <ListAltIcon />, name: "Orders", func: orders },
         { icon: <PersonIcon />, name: "Profile", func: account },
         { icon: <SearchIcon />, name: "Search", func: search },
-       
+        {
+            icon: (
+                <ShoppingCartIcon
+                    style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
+                />
+            ),
+            name: `Cart(${cartItems.length})`,
+            func: cart,
+        },
         { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
     ];
 
@@ -49,6 +58,9 @@ const UserOptions = ({ user }) => {
     }
     function search() {
         navigate("/search");
+    }
+    function cart() {
+        navigate("/cart");
     }
     function logoutUser() {
         dispatch(logout());

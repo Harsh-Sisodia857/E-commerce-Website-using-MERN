@@ -22,6 +22,7 @@ import {
 import { Rating } from "@material-ui/lab";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 import { useParams } from 'react-router-dom';
+import { addItemsToCart } from './../../actions/cartAction';
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -67,6 +68,7 @@ const ProductDetails = () => {
 
   const addToCartHandler = () => {
     console.log("Add To Cart Handler Called...")
+    dispatch(addItemsToCart(id, quantity));
     alert.success("Item Added To Cart");
   };
 

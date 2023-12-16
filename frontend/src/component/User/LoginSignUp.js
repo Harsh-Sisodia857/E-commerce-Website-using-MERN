@@ -71,8 +71,6 @@ const LoginSignUp = () => {
     }
   };
 
-  const redirect = (location && location.search) ? location.search.split("=")[1] : "/account";
-
   useEffect(() => {
     if (error && error.message) {
       dispatch(clearErrors());
@@ -80,9 +78,9 @@ const LoginSignUp = () => {
 
 
     if (isAuthenticated) {
-      navigate(redirect);
+      navigate("/account");
     }
-  }, [dispatch, error, alert, isAuthenticated, redirect]);
+  }, [dispatch, error, alert, isAuthenticated]);
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {
