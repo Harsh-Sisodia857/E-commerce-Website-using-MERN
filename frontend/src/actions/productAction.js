@@ -91,6 +91,7 @@ export const createProduct = (productData) => async (dispatch) => {
             productData,
             config
         );
+        
 
         dispatch({
             type: NEW_PRODUCT_SUCCESS,
