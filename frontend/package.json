@@ -3,19 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@material-ui/core": "^4.12.3",
     "@material-ui/data-grid": "^4.0.0-alpha.37",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
-    "@stripe/react-stripe-js": "^1.4.1",
-    "@stripe/stripe-js": "^1.17.1",
+    "@mui/icons-material": "^5.15.0",
+    "@mui/material": "^5.15.0",
+    "@popperjs/core": "^2.11.8",
+    "@stripe/react-stripe-js": "^1.16.5",
+    "@stripe/stripe-js": "^1.54.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.21.1",
     "chart.js": "^3.5.1",
-    "country-state-city": "^3.0.1",
-    "overlay-navbar": "^1.0.4",
+    "country-state-city": "^3.2.1",
+    "http-proxy-middleware": "^2.0.6",
+    "overlay-navbar": "^1.2.3",
     "react": "^18.2.0",
     "react-alert": "^7.0.3",
     "react-alert-template-basic": "^1.0.2",
@@ -58,6 +64,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy" : "http://192.168.115.143:4000/"
+  }
 }
